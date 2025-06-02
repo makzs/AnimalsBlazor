@@ -1,0 +1,59 @@
+﻿@using AnimalsBlazor.Components.Pages.PartialComponent
+@using AnimalsBlazor.Services
+
+@inject IDogService DogService
+@inject IDialogService DialogService
+
+@rendermode InteractiveServer
+
+<MudGrid Spacing="10" Justify="Justify.Center">
+    @foreach (var imagem in Imagens)
+    {
+        <MudItem>
+            <MudPaper Height="140px" Width="140px">
+                <MudButton OnClick="@(() => OpenDialogAsync(imagem))" Style="padding: 0">
+                    <MudImage Src="@imagem" Height="140" Width="140" Alt="Random Dog" Elevation="25" Class="rounded-lg" />
+                </MudButton>
+            </MudPaper>
+        </MudItem>
+    }
+</MudGrid>
+
+<style>
+    .my-custom-class {
+        backdrop-filter: blur(10px);
+    }
+</style>
+
+@code {
+    private List<string> Imagens = new();
+    public int cont = 12;
+    private string? Imagem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarImagens();
+    }
+
+    private async Task CarregarImagens()
+    {
+        Imagens.Clear();
+
+        for (int i = 0; i < cont; i++)
+        {
+            var imagem = await DogService.GetRandomDogImageAsync();
+            {
+                Imagens.Add(imagem!);
+            }
+        }
+    }
+
+    private Task OpenDialogAsync(string imagem)
+    {
+        var parameters = new DialogParameters { ["Imagem"] = imagem };
+
+        var options = new DialogOptions { BackgroundClass = "my-custom-class",};
+
+        return DialogService.ShowAsync<DogImageDialog>("Simple Dialog", parameters, options);
+    }
+}

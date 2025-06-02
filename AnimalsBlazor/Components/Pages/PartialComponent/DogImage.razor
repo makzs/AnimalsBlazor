@@ -1,0 +1,22 @@
+﻿@using AnimalsBlazor.Services
+@inject IDogService DogService
+
+@if (!string.IsNullOrWhiteSpace(Imagem))
+{
+    <MudImage Src="@Imagem" Height="140" Width="140" Alt="Random Dog" Elevation="25" Class="rounded-lg" />
+}
+
+
+@code {
+    private string? Imagem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregarImagens();
+    }
+
+    private async Task CarregarImagens()
+    {
+        Imagem = await DogService.GetRandomDogImageAsync();
+    }
+}

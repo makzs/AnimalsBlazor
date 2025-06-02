@@ -1,0 +1,23 @@
+﻿<MudDialog>
+    <DialogContent>
+        @if (!string.IsNullOrWhiteSpace(Imagem))
+        {
+            <MudImage Src="@Imagem" Height="300" Width="300" Alt="Dog Image Dialog" Class="rounded-lg" Elevation="25" />
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public string? Imagem { get; set; }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+}
