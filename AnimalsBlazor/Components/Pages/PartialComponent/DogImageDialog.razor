@@ -1,4 +1,8 @@
-﻿<MudDialog>
+﻿@inject IJSRuntime JSRuntime
+
+@rendermode InteractiveServer
+
+<MudDialog>
     <DialogContent>
         @if (!string.IsNullOrWhiteSpace(Imagem))
         {
@@ -7,7 +11,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+        <MudButton Color="Color.Primary" OnClick="BaixarImagemAsync">Baixar</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -20,4 +24,10 @@
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
 
     private void Cancel() => MudDialog.Cancel();
+
+    private async Task BaixarImagemAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("downloadArquivo", Imagem, "dog.png");
+        MudDialog.Close();
+    }
 }

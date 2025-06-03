@@ -16,6 +16,22 @@
     <Routes @rendermode="InteractiveServer" />
     <script src="_framework/blazor.web.js"></script>
     <script src=@Assets["_content/MudBlazor/MudBlazor.min.js"]></script>
+    <script>
+        window.downloadArquivo = async (url, nomeArquivo) => {
+            const response = await fetch(url, { mode: 'cors' });
+            const blob = await response.blob();
+            const blobUrl = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = nomeArquivo;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+        };
+    </script>
+
 </body>
 
 </html>
