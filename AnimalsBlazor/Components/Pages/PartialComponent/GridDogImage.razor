@@ -6,18 +6,35 @@
 
 @rendermode InteractiveServer
 
-<MudGrid Spacing="10" Justify="Justify.Center">
-    @foreach (var imagem in Imagens)
-    {
-        <MudItem>
-            <MudPaper Height="140px" Width="140px">
-                <MudButton OnClick="@(() => OpenDialogAsync(imagem))" Style="padding: 0">
-                    <MudImage Src="@imagem" Height="140" Width="140" Alt="Random Dog" Elevation="25" Class="rounded-lg" />
-                </MudButton>
-            </MudPaper>
+<MudItem class="d-flex">
+    <MudText Typo="Typo.h3" GutterBottom="true">Escolha sua imagem:</MudText>
+    <MudButton OnClick="CarregarImagens" Variant="Variant.Outlined" Color="Color.Primary">Aleatorizar</MudButton>
+</MudItem>
+
+
+@if (isLoading)
+{
+    <MudGrid Justify="Justify.Center" Class="mt-6">
+        <MudItem xs="12" class="d-flex justify-center">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
         </MudItem>
-    }
-</MudGrid>
+    </MudGrid>
+}
+else
+{
+    <MudGrid Spacing="10" Justify="Justify.Center">
+        @foreach (var imagem in Imagens)
+        {
+            <MudItem>
+                <MudPaper Height="140px" Width="140px">
+                    <MudButton OnClick="@(() => OpenDialogAsync(imagem))" Style="padding: 0">
+                        <MudImage Src="@imagem" Height="140" Width="140" Alt="Random Dog" Elevation="25" Class="rounded-lg" />
+                    </MudButton>
+                </MudPaper>
+            </MudItem>
+        }
+    </MudGrid>
+}
 
 <style>
     .my-custom-class {
@@ -29,14 +46,18 @@
     private List<string> Imagens = new();
     public int cont = 12;
     private string? Imagem;
+    private bool isLoading = false;
 
     protected override async Task OnInitializedAsync()
     {
+        isLoading = true;
         await CarregarImagens();
+        isLoading = false;
     }
 
     private async Task CarregarImagens()
     {
+        isLoading = true;
         Imagens.Clear();
 
         for (int i = 0; i < cont; i++)
@@ -46,6 +67,8 @@
                 Imagens.Add(imagem!);
             }
         }
+
+        isLoading = false;
     }
 
     private Task OpenDialogAsync(string imagem)
@@ -54,6 +77,6 @@
 
         var options = new DialogOptions { BackgroundClass = "my-custom-class",};
 
-        return DialogService.ShowAsync<DogImageDialog>("Simple Dialog", parameters, options);
+        return DialogService.ShowAsync<DogImageDialog>("Deseja baixar essa imagem?", parameters, options);
     }
 }
