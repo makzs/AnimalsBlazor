@@ -6,10 +6,11 @@
 
 @rendermode InteractiveServer
 
-<MudItem class="d-flex">
+<MudToolBar class="d-flex my-4">
     <MudText Typo="Typo.h3" GutterBottom="true">Escolha sua imagem:</MudText>
-    <MudButton OnClick="CarregarImagens" Variant="Variant.Outlined" Color="Color.Primary">Aleatorizar</MudButton>
-</MudItem>
+    <MudSpacer />
+    <MudIconButton OnClick="CarregarImagens" Class="ma-0" Icon="@Icons.Material.Filled.RestartAlt" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large"/>
+</MudToolBar>
 
 
 @if (isLoading)
@@ -44,7 +45,7 @@ else
 
 @code {
     private List<string> Imagens = new();
-    public int cont = 12;
+    public int cont = 24;
     private string? Imagem;
     private bool isLoading = false;
 
