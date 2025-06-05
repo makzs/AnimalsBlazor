@@ -15,7 +15,7 @@ builder.Services.AddHttpClient("DogApi", client =>
 
 });
 
-builder.Services.AddScoped<IDogService, DogService>();
+builder.Services.AddScoped<IAnimalService, AnimalService>();
 
 var app = builder.Build();
 

@@ -1,7 +1,10 @@
-﻿@using AnimalsBlazor.Components.Pages.PartialComponent
+﻿@page "/list"
+@page "/list/{id}"
+
+@using AnimalsBlazor.Components.Pages.PartialComponent
 @using AnimalsBlazor.Services
 
-@inject IDogService DogService
+@inject IAnimalService AnimalService
 @inject IDialogService DialogService
 
 @rendermode InteractiveServer
@@ -39,18 +42,30 @@ else
 
 <style>
     .my-custom-class {
-        backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     }
 </style>
 
 @code {
+
+    [Parameter]
+    public string? Id { get; set; }
+
+
     private List<string> Imagens = new();
     public int cont = 24;
     private string? Imagem;
     private bool isLoading = false;
 
+    private Dictionary<string, Func<Task<string>>> _animalImageLoaders = new();
+
     protected override async Task OnInitializedAsync()
     {
+        _animalImageLoaders = new Dictionary<string, Func<Task<string>>>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "dog", () => AnimalService.GetRandomDogImageAsync() }
+    };
+
         isLoading = true;
         await CarregarImagens();
         isLoading = false;
@@ -60,10 +75,18 @@ else
     {
         isLoading = true;
         Imagens.Clear();
+        var tipo = Id;
+
+        if (string.IsNullOrWhiteSpace(tipo) || !_animalImageLoaders.ContainsKey(tipo))
+        {
+            tipo = "dog";
+        }
+
+        var getImagem = _animalImageLoaders[tipo];
 
         for (int i = 0; i < cont; i++)
         {
-            var imagem = await DogService.GetRandomDogImageAsync();
+            var imagem = await getImagem();
             {
                 Imagens.Add(imagem!);
             }
@@ -78,6 +101,6 @@ else
 
         var options = new DialogOptions { BackgroundClass = "my-custom-class",};
 
-        return DialogService.ShowAsync<DogImageDialog>("Deseja baixar essa imagem?", parameters, options);
+        return DialogService.ShowAsync<ImageDialog>("Deseja baixar essa imagem?", parameters, options);
     }
 }

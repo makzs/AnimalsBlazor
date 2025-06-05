@@ -2,12 +2,12 @@
 
 namespace AnimalsBlazor.Services;
 
-public class DogService : IDogService
+public class AnimalService : IAnimalService
 {
 
     private readonly HttpClient _httpClient;
 
-    public DogService(HttpClient httpClient)
+    public AnimalService(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }

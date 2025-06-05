@@ -1,6 +1,6 @@
 ﻿namespace AnimalsBlazor.Services;
 
-public interface IDogService
+public interface IAnimalService
 {
     Task<string?> GetRandomDogImageAsync();
 }
