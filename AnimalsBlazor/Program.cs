@@ -15,6 +15,12 @@ builder.Services.AddHttpClient("DogApi", client =>
 
 });
 
+builder.Services.AddHttpClient("DuckApi", client =>
+{
+    client.BaseAddress = new Uri("https://random-d.uk/api/v2");
+
+});
+
 builder.Services.AddScoped<IAnimalService, AnimalService>();
 
 var app = builder.Build();

@@ -63,7 +63,8 @@ else
     {
         _animalImageLoaders = new Dictionary<string, Func<Task<string>>>(StringComparer.OrdinalIgnoreCase)
     {
-        { "dog", () => AnimalService.GetRandomDogImageAsync() }
+        { "dog", () => AnimalService.GetRandomDogImageAsync() },
+        { "duck", () => AnimalService.GetRandomDuckImageAsync() }
     };
 
         isLoading = true;

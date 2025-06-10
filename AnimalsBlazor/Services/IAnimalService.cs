@@ -3,4 +3,5 @@
 public interface IAnimalService
 {
     Task<string?> GetRandomDogImageAsync();
+    Task<string?> GetRandomDuckImageAsync();
 }

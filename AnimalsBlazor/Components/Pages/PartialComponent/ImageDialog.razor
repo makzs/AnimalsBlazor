@@ -27,7 +27,7 @@
 
     private async Task BaixarImagemAsync()
     {
-        await JSRuntime.InvokeVoidAsync("downloadArquivo", Imagem, "dog.png");
+        await JSRuntime.InvokeVoidAsync("downloadArquivo", Imagem, "image.png");
         MudDialog.Close();
     }
 }
