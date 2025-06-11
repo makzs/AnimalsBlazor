@@ -21,6 +21,12 @@ builder.Services.AddHttpClient("DuckApi", client =>
 
 });
 
+builder.Services.AddHttpClient("FoxApi", client =>
+{
+    client.BaseAddress = new Uri("https://randomfox.ca/");
+
+});
+
 builder.Services.AddScoped<IAnimalService, AnimalService>();
 
 var app = builder.Build();

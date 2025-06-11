@@ -23,5 +23,11 @@ public class AnimalService : IAnimalService
         var resposne = await _httpClient.GetFromJsonAsync<DuckApiResponse>("https://random-d.uk/api/v2/random");
         return resposne?.Url;
     }
+
+    public async Task<string?> GetRandomFoxImageAsync()
+    {
+        var resposne = await _httpClient.GetFromJsonAsync<FoxApiResponse>("https://randomfox.ca/floof/");
+        return resposne?.Image;
+    }
 }
 
