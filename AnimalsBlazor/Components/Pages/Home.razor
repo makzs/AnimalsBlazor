@@ -1,8 +1,32 @@
 ﻿@page "/"
 @using AnimalsBlazor.Components.Pages.PartialComponent
 
-<PageTitle>Cachorros</PageTitle>
-<MudText Typo="Typo.h3">Qual categoria de imagens você deseja?</MudText>
+<PageTitle>Galeria</PageTitle>
+<MudText Typo="Typo.h3" Align="Align.Center">Qual categoria de imagens você deseja?</MudText>
 
-<MudButton Href="/list/dog" Variant="Variant.Filled" Color="Color.Primary">Dogs</MudButton>
-<MudButton Href="/list/duck" Variant="Variant.Filled" Color="Color.Primary">Ducks</MudButton>
+<MudGrid Spacing="10" Justify="Justify.Center" Class="mt-6">
+    <MudItem>
+        <MudText Align="Align.Center" Typo="Typo.h5">Cachorros</MudText>
+        <MudPaper Height="280" Width="280" Elevation="3">
+            <MudButton Href="/list/dog" Style="padding: 0">
+                <MudImage Src="Images/Dog.jpg" Height="280" Width="280" Alt="Categoria Cachorro" Elevation="25" />
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudText Align="Align.Center" Typo="Typo.h5">Patos</MudText>
+        <MudPaper Height="280" Width="280" Elevation="3">
+            <MudButton Href="/list/duck" Style="padding: 0">
+                <MudImage Src="Images/Duck.jpg" Height="280" Width="280" Alt="Categoria Patos" Elevation="25" />
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+    <MudItem>
+        <MudText Align="Align.Center" Typo="Typo.h5">Raposas</MudText>
+        <MudPaper Height="280" Width="280" Elevation="3">
+            <MudButton Href="/list/fox" Style="padding: 0">
+                <MudImage Src="Images/Fox.jpeg" Height="280" Width="280" Alt="Categoria Raposas" Elevation="25" />
+            </MudButton>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
